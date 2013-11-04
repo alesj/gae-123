@@ -15,9 +15,9 @@
     <description>GAE 123</description>
 
     <properties>
-        <version.com.google.gae>1.8.2</version.com.google.gae>
+        <version.com.google.gae>1.8.6</version.com.google.gae>
         <version.com.google.guava>11.0.2</version.com.google.guava>
-        <version.javax.servlet>3.0.1</version.javax.servlet>
+        <version.javax.servlet>2.5</version.javax.servlet>
     </properties>
 
     <build>
@@ -69,7 +69,7 @@
 
             <dependency>
                 <groupId>javax.servlet</groupId>
-                <artifactId>javax.servlet-api</artifactId>
+                <artifactId>servlet-api</artifactId>
                 <version>${version.javax.servlet}</version>
                 <scope>provided</scope>
             </dependency>
@@ -99,7 +99,7 @@
 
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <artifactId>servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
