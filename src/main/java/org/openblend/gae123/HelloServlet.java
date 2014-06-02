@@ -1,6 +1,10 @@
 package org.openblend.gae123;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -16,9 +20,19 @@ public class HelloServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String name = req.getParameter("name");
+        final String level = req.getParameter("level");
+
+        List<Level> levels;
+        if (level != null) {
+            levels = Collections.singletonList(Level.parse(level));
+        } else {
+            levels = Arrays.asList(Level.FINE, Level.INFO, Level.WARNING, Level.SEVERE);
+        }
 
         if (name != null) {
-            log.info(String.format("[LOG] name = %s", name));
+            for (Level ll : levels) {
+                log.log(ll, String.format("[LOG - %s] name = %s", ll, name));
+            }
         }
 
         resp.getWriter().write("Hello " + name + "!");
