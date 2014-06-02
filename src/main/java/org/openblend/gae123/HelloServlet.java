@@ -20,21 +20,22 @@ public class HelloServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String name = req.getParameter("name");
-        final String level = req.getParameter("level");
-
-        List<Level> levels;
-        if (level != null) {
-            levels = Collections.singletonList(Level.parse(level));
-        } else {
-            levels = Arrays.asList(Level.FINE, Level.INFO, Level.WARNING, Level.SEVERE);
-        }
 
         if (name != null) {
+            final String level = req.getParameter("level");
+
+            List<Level> levels;
+            if (level != null) {
+                levels = Collections.singletonList(Level.parse(level));
+            } else {
+                levels = Arrays.asList(Level.FINE, Level.INFO, Level.WARNING, Level.SEVERE);
+            }
+
             for (Level ll : levels) {
                 log.log(ll, String.format("[LOG - %s] name = %s", ll, name));
             }
-        }
 
-        resp.getWriter().write("Hello " + name + "!");
+            resp.getWriter().write("Hello " + name + "!");
+        }
     }
 }
