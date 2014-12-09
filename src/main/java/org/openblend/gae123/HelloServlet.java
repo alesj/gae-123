@@ -1,10 +1,6 @@
 package org.openblend.gae123;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -15,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 
@@ -38,16 +33,18 @@ public class HelloServlet extends HttpServlet {
         DatastoreService service = DatastoreServiceFactory.getDatastoreService();
         if ("get".equalsIgnoreCase(action)) {
             PreparedQuery pq = service.prepare(new Query(KIND).addSort("ts", Query.SortDirection.DESCENDING));
-            List<Entity> entities = pq.asList(FetchOptions.Builder.withLimit(1));
-            name = (entities.isEmpty() ? "<EMPTY>" : (String) entities.get(0).getProperty("name"));
-            if (name == null) name = entities.get(0).toString();
+            for (Entity entity : pq.asIterable()) {
+                resp.getWriter().write(String.valueOf(entity));
+            }
         } else if ("put".equalsIgnoreCase(action)) {
             Entity entity = new Entity(KIND);
             entity.setProperty("name", name);
             entity.setProperty("ts", System.currentTimeMillis());
             service.put(entity);
+            resp.getWriter().write(String.valueOf(entity));
         }
 
+/*
         if (name != null) {
             final String level = req.getParameter("level");
 
@@ -64,5 +61,6 @@ public class HelloServlet extends HttpServlet {
 
             resp.getWriter().write("Hello " + name + "!");
         }
+*/
     }
 }
