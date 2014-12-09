@@ -15,7 +15,7 @@
     <description>GAE 123</description>
 
     <properties>
-        <version.com.google.gae>1.9.5</version.com.google.gae>
+        <version.com.google.gae>1.9.15</version.com.google.gae>
         <version.com.google.guava>11.0.2</version.com.google.guava>
         <version.javax.servlet>2.5</version.javax.servlet>
     </properties>
@@ -30,6 +30,11 @@
                     <target>1.7</target>
                     <debug>true</debug>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.google.appengine</groupId>
+                <artifactId>appengine-maven-plugin</artifactId>
+                <version>${version.com.google.gae}</version>
             </plugin>
        </plugins>
     </build>
